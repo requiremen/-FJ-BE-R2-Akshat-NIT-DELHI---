@@ -1,0 +1,2 @@
+what i feel is that the middleware for login is not required because the data is not going to be saved in the database so after all its just scraping in the database and finding the rgister 
+details and matching with the user logiing in hence the zod can be defined but i dont think the middleware is require
