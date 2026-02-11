@@ -102,4 +102,3 @@ A comprehensive, full-stack personal finance management application built to hel
 ## 📬 Contact
 **Akshat Rastogi**  
 NIT Delhi  
-# -FJ-BE-R2-Akshat-NIT-DELHI-
