@@ -44,6 +44,7 @@ const transactionSchema  = new mongoose.Schema({
         type: String,
         default: 'INR'
     },
+    receiptUrl: String,
     description : String,
     date : {
         type : Date,

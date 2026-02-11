@@ -10,6 +10,7 @@ const AddTransaction = () => {
   const [currency, setCurrency] = useState('INR');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+  const [receipt, setReceipt] = useState(null); // New state for file
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -34,14 +35,23 @@ const AddTransaction = () => {
 
     setLoading(true);
     try {
-      console.log("Sending transaction:", { type, amount, category, description, date, currency });
-      await api.post('/transaction', {
-        type,
-        amount: Number(amount),
-        category,
-        description,
-        date,
-        currency
+      const formData = new FormData();
+      formData.append('type', type);
+      formData.append('amount', amount);
+      formData.append('category', category);
+      formData.append('description', description);
+      formData.append('date', date);
+      formData.append('currency', currency);
+      if (receipt) {
+        formData.append('receipt', receipt);
+      }
+
+      console.log("Sending transaction:", { type, amount, category, description, date, currency, receipt });
+      
+      await api.post('/transaction', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
       });
       navigate('/dashboard');
     } catch (err) {
@@ -182,6 +192,24 @@ const AddTransaction = () => {
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="What was this for?"
                 ></textarea>
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2">Receipt (Optional)</label>
+              <div className="flex items-center space-x-2">
+                <input
+                  type="file"
+                  accept="image/*,application/pdf"
+                  onChange={(e) => setReceipt(e.target.files[0])}
+                  className="block w-full text-sm text-slate-500
+                    file:mr-4 file:py-2 file:px-4
+                    file:rounded-full file:border-0
+                    file:text-sm file:font-semibold
+                    file:bg-indigo-50 file:text-indigo-700
+                    hover:file:bg-indigo-100
+                  "
+                />
               </div>
             </div>
 

@@ -327,6 +327,16 @@ const Dashboard = () => {
                             </>
                           )}
                         </div>
+                        {transaction.receiptUrl && (
+                          <a 
+                            href={transaction.receiptUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-xs text-indigo-600 hover:text-indigo-800 flex items-center mt-1"
+                          >
+                            <span className="mr-1">📄</span> View Receipt
+                          </a>
+                        )}
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
