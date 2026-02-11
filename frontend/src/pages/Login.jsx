@@ -96,14 +96,18 @@ const Login = () => {
             <GoogleLogin
                 onSuccess={async (credentialResponse) => {
                     try {
+                        console.log("Google Credential Response:", credentialResponse);
                         await googleLogin(credentialResponse.credential);
                         navigate('/dashboard');
                     } catch (err) {
-                        setError('Google Login Failed');
+                        console.error("Google Login Error:", err);
+                        const errorMessage = err.response?.data?.msg || err.message || 'Google Login Failed';
+                        setError(errorMessage);
                     }
                 }}
                 onError={() => {
-                    setError('Google Login Failed');
+                    console.error("Google Login Failed (onError callback)");
+                    setError('Google Login Failed - Popup closed or blocked');
                 }}
                 width="100%"
             />

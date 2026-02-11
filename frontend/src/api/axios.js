@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+// Ensure baseURL doesn't have a trailing slash
+const baseURL = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, "");
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000',
+  baseURL: baseURL,
 });
 
 // Debug: Log the API URL being used
