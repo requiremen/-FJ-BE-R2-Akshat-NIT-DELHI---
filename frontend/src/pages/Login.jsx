@@ -19,7 +19,9 @@ const Login = () => {
       await login(email, password);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.msg || 'Login failed');
+      console.error("Login Error Details:", err);
+      const errorMessage = err.response?.data?.msg || err.message || 'Login failed';
+      setError(errorMessage + (err.code === "ERR_NETWORK" ? " (Check backend URL)" : ""));
     } finally {
       setLoading(false);
     }

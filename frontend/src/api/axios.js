@@ -4,6 +4,9 @@ const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000',
 });
 
+// Debug: Log the API URL being used
+console.log('API URL:', api.defaults.baseURL);
+
 // Add a request interceptor to add the token to headers
 api.interceptors.request.use(
   (config) => {
